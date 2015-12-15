@@ -1,5 +1,6 @@
 package ua.cn.stu.cs.bukovelmap;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class MapMath {
         return distance;
     }
 
-    public static List<NodeData> getPath(NodeData start, NodeData end)
+    public static List<NodeData> getPath(NodeData start, NodeData end,int level)
             throws PathNotFoundException
     {
         List<NodeData> opened = new LinkedList<NodeData>();
@@ -63,6 +64,12 @@ public class MapMath {
             opened.remove(cur);
             closed.add(cur);
             for(NeighborNodeData neighbor : cur.getNeighbors()){
+                if (
+                        (level < neighbor.getRoad().getLevel())
+                        || (!neighbor.getRoad().isPassable())
+                ){
+                    continue;
+                }
                 if(closed.contains(neighbor.getNeighbor())){
                     continue;
                 }

@@ -5,29 +5,33 @@ package ua.cn.stu.cs.bukovelmap.data;
  */
 public class RoadData {
 
-    private boolean isWayDown = false;
-    private ERoadLevel level;
+    public static int ROAD_LEVEL_EASY = 0;
+    public static int ROAD_LEVEL_MEDIUM = 1;
+    public static int ROAD_LEVEL_HARD = 2;
+
+    private boolean isPassable = false;
+    private int level;
     private double distance;
 
-    public RoadData(boolean isWayDown, ERoadLevel level, double distance) {
-        this.isWayDown = isWayDown;
+    public RoadData(boolean isPassable, int level, double distance) {
+        this.isPassable = isPassable;
         this.level = level;
         this.distance = distance;
     }
 
-    public boolean isWayDown() {
-        return isWayDown;
+    public boolean isPassable() {
+        return isPassable;
     }
 
-    public void setWayDown(boolean isWayDown) {
-        this.isWayDown = isWayDown;
+    public void setPassable(boolean isWayDown) {
+        this.isPassable = isWayDown;
     }
 
-    public ERoadLevel getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(ERoadLevel level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

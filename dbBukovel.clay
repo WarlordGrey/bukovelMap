@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="" id="17541f2:151ac68ed63:-8000" name="dbBukovel" sql-dialect-id="jp.azzurri.clay.dialect.SQLite_3_5_6_Dialect" version="1.0">
+<schema-list>
+<schema id="17541f2:151ac68ed63:-7ffb" name="DEFAULT_SCHEMA">
+<table-list>
+<table alias="Node Data" id="17541f2:151ac68ed63:-7ffd" name="NodeData">
+<column-list>
+<column alias="id" auto-increment="true" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7ff7" mandatory="true" name="idNodeData">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="latitude" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17541f2:151ac68ed63:-7ff8" mandatory="false" name="latitude">
+<data-type name="REAL" selected-variant-pattern="REAL"/>
+</column>
+<column alias="longitude" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="17541f2:151ac68ed63:-7ff6" mandatory="false" name="longitude">
+<data-type name="REAL" selected-variant-pattern="REAL"/>
+</column>
+</column-list>
+<primary-key id="17541f2:151ac68ed63:-7ffc" name="PK_NODEDATA">
+<primary-key-column name="idNodeData"/>
+</primary-key>
+</table>
+<table alias="Road Data" id="17541f2:151ac68ed63:-7ff4" name="RoadData">
+<column-list>
+<column alias="id" auto-increment="true" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7ff0" mandatory="true" name="idRoadData">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="level" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="17541f2:151ac68ed63:-7feb" mandatory="false" name="level">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Distance" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="17541f2:151ac68ed63:-7fea" mandatory="false" name="distance">
+<data-type name="REAL" selected-variant-pattern="REAL"/>
+</column>
+<column alias="Is Passable" auto-increment="false" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7fe9" mandatory="false" name="isPassable">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="17541f2:151ac68ed63:-7ff3" name="PK_ROADDATA">
+<primary-key-column name="idRoadData"/>
+</primary-key>
+</table>
+<table alias="Neighbor Node Data" id="17541f2:151ac68ed63:-7fe8" name="NeighborNodeData">
+<column-list>
+<column alias="Id" auto-increment="true" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7fe4" mandatory="true" name="idNeighborNodeData">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="id" auto-increment="false" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7ea8" mandatory="true" name="idRoadData">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="id" auto-increment="false" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7db0" mandatory="true" name="idNodeData">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="17541f2:151ac68ed63:-7fe7" name="PK_NEIGHBORNODEDATA">
+<primary-key-column name="idNeighborNodeData"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="17541f2:151ac68ed63:-7eaa" name="FK_NeighborNodeData_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ROADDATA" referenced-table="RoadData" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idRoadData" referenced-key-column-name="idRoadData"/>
+</foreign-key>
+<foreign-key id="17541f2:151ac68ed63:-7db2" name="FK_NeighborNodeData_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_NODEDATA" referenced-table="NodeData" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idNodeData" referenced-key-column-name="idNodeData"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Neighbor List" id="17541f2:151ac68ed63:-7d96" name="NeighborList">
+<column-list>
+<column alias="Id" auto-increment="true" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7d92" mandatory="true" name="id">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="id" auto-increment="false" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7d7e" mandatory="true" name="idNodeData">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Id" auto-increment="false" column-size="0" decimal-digits="0" default-value="1" id="17541f2:151ac68ed63:-7d38" mandatory="true" name="idNeighborNodeData">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="17541f2:151ac68ed63:-7d95" name="PK_NEIGHBORLIST">
+<primary-key-column name="id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="17541f2:151ac68ed63:-7d80" name="FK_NeighborList_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_NODEDATA" referenced-table="NodeData" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idNodeData" referenced-key-column-name="idNodeData"/>
+</foreign-key>
+<foreign-key id="17541f2:151ac68ed63:-7d3a" name="FK_NeighborList_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_NEIGHBORNODEDATA" referenced-table="NeighborNodeData" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idNeighborNodeData" referenced-key-column-name="idNeighborNodeData"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure refid="17541f2:151ac68ed63:-7ffd" x="58" y="69"/>
+<table-figure refid="17541f2:151ac68ed63:-7ff4" x="555" y="59"/>
+<table-figure refid="17541f2:151ac68ed63:-7fe8" x="491" y="341"/>
+<table-figure refid="17541f2:151ac68ed63:-7d96" x="37" y="252"/>
+</diagram>
+</clay-model>

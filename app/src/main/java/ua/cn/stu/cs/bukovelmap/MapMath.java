@@ -1,6 +1,5 @@
 package ua.cn.stu.cs.bukovelmap;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class MapMath {
         return distance;
     }
 
-    public static List<NodeData> getPath(NodeData start, NodeData end,int level)
+    public static List<NodeData> getPath(NodeData start, NodeData end, int level)
             throws PathNotFoundException
     {
         List<NodeData> opened = new LinkedList<NodeData>();
@@ -53,10 +52,11 @@ public class MapMath {
         HashMap<NodeData,Double> g = new HashMap<NodeData,Double>();
         HashMap<NodeData,Double> f = new HashMap<NodeData,Double>();
         double h = getHeuristicFunction(start,end,true);
+        g.put(start, 0.0);
         f.put(start,g.get(start) + h);
         boolean found = false;
         while ((!opened.isEmpty())){
-            NodeData cur = getNodeWithMinF(f);
+            NodeData cur = getNodeWithMinF(f,opened);
             if (cur == end){
                 found = true;
                 break;
@@ -73,7 +73,7 @@ public class MapMath {
                 if(closed.contains(neighbor.getNeighbor())){
                     continue;
                 }
-                double tempG = g.get(cur) + getDistance(start,end,false);
+                double tempG = g.get(cur) + getDistance(cur,neighbor.getNeighbor(),false);
                 if(
                         !opened.contains(neighbor.getNeighbor())
                         || isGOldIsGreater(g,neighbor.getNeighbor(),tempG))
@@ -93,25 +93,16 @@ public class MapMath {
         if (!found){
             throw new PathNotFoundException(PATH_NOT_FOUND);
         }
-        List retVal = new LinkedList<NodeData>();
+        List<NodeData> retVal = new LinkedList<NodeData>();
         NodeData cur = end;
+        retVal.add(cur);
         do {
             retVal.add(fromMap.get(cur));
             cur = fromMap.get(cur);
         } while (cur != start);
         return retVal;
     }
-
-    /*private static boolean isNodeInList(NodeData node, List<NodeData> list){
-        for(NodeData cur : list){
-            if (cur == node){
-                return true;
-            }
-        }
-        return false;
-    }
-    */
-
+    
     private static boolean isGOldIsGreater(
             HashMap<NodeData,Double> g,
             NodeData node,
@@ -123,11 +114,14 @@ public class MapMath {
         return false;
     }
 
-    private static NodeData getNodeWithMinF(HashMap<NodeData,Double> f){
+    private static NodeData getNodeWithMinF(HashMap<NodeData,Double> f, List<NodeData> opened){
         NodeData retVal = null;
-        double min = f.values().iterator().next();
+        double min = Double.NEGATIVE_INFINITY;
         for (NodeData node : f.keySet()){
-            if (min > f.get(node)){
+        	if (!opened.contains(node)){
+        		continue;
+        	}
+            if ((min > f.get(node)) || (min == Double.NEGATIVE_INFINITY)){
                 min = f.get(node);
                 retVal = node;
             }

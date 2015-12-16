@@ -43,4 +43,10 @@ public class RoadData {
         this.distance = distance;
     }
 
+	@Override
+	public String toString() {
+		return "RoadData [isPassable=" + isPassable + ", level=" + level
+				+ ", distance=" + distance + "]";
+	}
+
 }
